@@ -75,7 +75,7 @@ flowchart TD
 
 稿子上的一句话，到后面就是几张图、一段配音，所以稿子不定不往下走。
 
-两篇定稿在 [`teshi-style/samples/`](teshi-style/samples/)（09 和 12）。写作规范在 [`teshi-style/`](teshi-style/)：入口是 [`SKILL.md`](teshi-style/SKILL.md)，完整的文风分析在 [`STYLE_GUIDE.md`](teshi-style/STYLE_GUIDE.md)，检查脚本是 `tools/style_lint.py`。原作者的原文语料（全文索引和整篇范例）没有放进仓库，所以按主题取范例的 `tools/pick_exemplars.py` 在这里跑不起来。
+两篇定稿在 [`teshi-style/samples/`](teshi-style/samples/)（09 和 12）。写作规范在 [`teshi-style/`](teshi-style/)：入口是 [`SKILL.md`](teshi-style/SKILL.md)，完整的文风分析在 [`STYLE_GUIDE.md`](teshi-style/STYLE_GUIDE.md)，检查脚本是 `tools/style_lint.py`。原作者的原文不在这个仓库里，通过 git 子模块引用上游公开的 [MindFxck/daguguguji](https://github.com/MindFxck/daguguguji)《特师文集》；取范例用的全文索引要自己从子模块生成一次，办法见 [`teshi-style/README.md`](teshi-style/README.md)。
 
 ## 第二步 脚本
 
@@ -214,6 +214,7 @@ SHOTS = [
 
 ```
 teshi-style/              特师体写作规范：SKILL.md、STYLE_GUIDE.md、词汇表、模板、检查脚本
+teshi-style/daguguguji/   git 子模块：上游《特师文集》原文（语料）
 teshi-style/samples/      用这套规范写的稿子，09 和 12 是这两部片子的定稿
 videos/工具/              通用脚本：配音、生图、去黑边、生视频、音乐、合成、拼图
 videos/09-chaoxieyuan/    《抄写员》：出脚本.py、画风.json、分镜.json、脚本.md、制作说明.md、配音的文本和时间轴
@@ -221,7 +222,7 @@ videos/12-shenpanting/    《审判庭》：同上
 docs/img/                 这份文档的配图
 ```
 
-没有放进来的：生成的图片、音频、视频（体积大），每次模型调用的原始记录，其他几部片子的工程，以及写作规范里原作者的原文语料。
+没有放进来的：生成的图片、音频、视频（体积大），每次模型调用的原始记录，其他几部片子的工程。原作者的原文走子模块，克隆时加 `--recurse-submodules`。
 
 在片子目录里按顺序运行：
 

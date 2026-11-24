@@ -12,16 +12,17 @@ teshi-style/
 │   ├── templates.md          ← 微博体 15 形 · 小说 10 壳 · 诗 4 形 · 文章→特师体转换配方（含示范）
 │   ├── anti-patterns.md      ← 三篇粉丝仿写为什么失败 · LLM 草稿常见病 · 12 条人工检查清单
 │   ├── music-culture.md      ← 歌 / 影 / 书引用与歌词插入的 10 种技术
-│   └── exemplars/            ← 按体裁整理的原文范例（micro / fiction / poem / dialogue / rant）
+│   └── exemplars/            ← 仓库里只有 agent-samples.md（agent 产出的样本）；按体裁整理的原文范例不入库，用 pick_exemplars.py 现取
 ├── prompts/
 │   ├── write_from_idea.md    ← 从一句话想法写
 │   ├── convert_article.md    ← 文章 / 新闻 / 聊天记录 → 特师体
 │   └── revise.md             ← 配合 linter 的修订 pass
 └── tools/
     ├── build_index.py        ← 从 repo 重建 corpus.jsonl（全文 + 每篇节奏/指纹统计）
-    ├── corpus.jsonl          ← 432 条记录（拾遗已拆成单条微博），自带全文，工具不依赖 repo
+    ├── corpus.jsonl          ← 432 条记录（拾遗已拆成单条微博），自带全文；不入库，按下文从子模块生成
     ├── pick_exemplars.py     ← 按体裁 / 主题 / 指纹 / 精选集取 few-shot 范例
     └── style_lint.py         ← 给草稿打分（节奏 · 指纹密度 · 四层覆盖 · 反模式 · 收尾），附修改建议
+└── daguguguji/               ← git 子模块：上游《特师文集》原文
 ```
 
 ## 快速开始
@@ -53,12 +54,17 @@ Linter 基线：原作在这个 linter 上 fiction 中位 91、micro 中位 100�
 
 量化指纹：分句均长 7–8 字；微博体句号 1.6/100 字（逗号长流）；指纹词每千字 10–17 个（仿写 40+ 即 cargo cult）；短句占比 0.37（仿写 0.52 太碎）。
 
-## 重建索引
+## 语料（子模块）
+
+原文不放在这个仓库里，通过 git 子模块引用上游的 [MindFxck/daguguguji](https://github.com/MindFxck/daguguguji)，位置是 `teshi-style/daguguguji/`。`tools/corpus.jsonl` 是从它生成的全文索引，已写进 `.gitignore`。拿到仓库后先生成一次：
 
 ```bash
-git clone https://github.com/MindFxck/daguguguji
-python3 tools/build_index.py daguguguji -o tools/corpus.jsonl
+git submodule update --init        # 克隆时没加 --recurse-submodules 的话
+cd teshi-style
+python3 tools/build_index.py daguguguji -o tools/corpus.jsonl      # 432 条
 ```
+
+`pick_exemplars.py` 读这个索引，没有它取不了范例；`style_lint.py` 没有索引也能跑。按体裁整理好的原文范例文件同样不入库，需要时现取，例如 `python3 tools/pick_exemplars.py --curated micro -n 4`。
 
 ## 版权
 
