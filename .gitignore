@@ -23,9 +23,7 @@ videos/06-shangtian/
 videos/07-xiyou01/
 videos/08-jinju/
 
-# 写作规范带原作者的原文语料，不公开；只放两篇定稿
-teshi-style/*
-!teshi-style/samples/
-teshi-style/samples/*
-!teshi-style/samples/09-wh40k-chaoxieyuan.md
-!teshi-style/samples/12-wh40k-shenpanting.md
+# 写作规范：原作者的原文语料不进仓库（全文索引和整篇原文范例）
+teshi-style/tools/corpus.jsonl
+teshi-style/references/exemplars/*
+!teshi-style/references/exemplars/agent-samples.md
